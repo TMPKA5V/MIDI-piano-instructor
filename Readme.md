@@ -4,6 +4,9 @@ The new level of interaction is reached when the student is guided on the notes 
 ![](/Images/1.jpg)
 
 The scheme is simple : a Personal Computer running music-teaching software or regular score composing/playing software (Sonar, Cakewalk, Sibelius, Rosegarden,..) is connected trough its MIDI out port to the MIDI in port of the ‘MIDI Piano Instructor’. Optionally the MIDI through port of the MIDI instructor can be connected to the MIDI in port of the electronic keyboard or piano. The same MIDI messages that play the music or the exercises on the piano, light up the LEDs on top of the piano keys. The student replicates the exercises watching directly the keyboard without diverting attention from the piano keyboard to look at the PC screen. Voice messages in synch with the exercises (some music composing software support it) might add an extra layer of interaction.
+
+Videos are on [Youtube here](https://www.youtube.com/watch?v=i7AfiCQQ4nE&ab_channel=iam5volt), [and here](https://www.youtube.com/watch?v=I-nwL57EFvU&ab_channel=iam5volt)
+
 One further layer of interactivity is introduced when the MIDI out port of the keyboard is connected to the MIDI input port of the PC, closing the loop and providing teaching software with feedback on the student’s performance. This is done by some of music teaching software already.
 The piano does not need to be electronic, it can be a stringed piano or even a pipe organ:  in this case the MIDI through port of the MIDI Piano Instructor might be connected to a MIDI sound generator.
 No modification is necessary to the musical instrument as the LED bar is self contained and can be placed on the piano or organ with some velcro strap.
