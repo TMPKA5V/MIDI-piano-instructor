@@ -1,6 +1,8 @@
 The ‘MIDI Piano Instructor’ is a tool aimed at improving the piano keyboard self-teaching experience with direct interaction between the student and software (or human, remote) teacher.
 The new level of interaction is reached when the student is guided on the notes to play or exercise on visually with LEDs placed directly on top of the piano keys.
 
+![](/Images/1.jpg)
+
 The scheme is simple : a Personal Computer running music-teaching software or regular score composing/playing software (Sonar, Cakewalk, Sibelius, Rosegarden,..) is connected trough its MIDI out port to the MIDI in port of the ‘MIDI Piano Instructor’. Optionally the MIDI through port of the MIDI instructor can be connected to the MIDI in port of the electronic keyboard or piano. The same MIDI messages that play the music or the exercises on the piano, light up the LEDs on top of the piano keys. The student replicates the exercises watching directly the keyboard without diverting attention from the piano keyboard to look at the PC screen. Voice messages in synch with the exercises (some music composing software support it) might add an extra layer of interaction.
 One further layer of interactivity is introduced when the MIDI out port of the keyboard is connected to the MIDI input port of the PC, closing the loop and providing teaching software with feedback on the student’s performance. This is done by some of music teaching software already.
 The piano does not need to be electronic, it can be a stringed piano or even a pipe organ:  in this case the MIDI through port of the MIDI Piano Instructor might be connected to a MIDI sound generator.
@@ -10,6 +12,8 @@ The video herebelow shows the action quite better than anything else.
 
 The MIDI file plays the song out of its MIDI out port on the sound card game port. The MIDI out port is connected to the MIDI in port of the MIDI instructor which reads a specific selectable channel of the stream (‘note on’ and ‘note off’ messages only). The same MIDI stream is available at the transparent MIDI through port of the MIDI instructor which is connected in my case to the MIDI in port of my piano.
 The circuit is designed for 88 keys full piano keyborads but it can be easily used on smaller sized keybords just leaving the unused LEDs out keeping as a reference the ‘middle C’ note or ‘DO centrale’ of the keyboard.
+
+![](/Images/2.jpg)
 
 ##How MIDI works in the MIDI Piano Instructor
 I wanted this thing to respond to MIDI note-playing messages turning on and off the LEDs instead of actually playing notes.
@@ -40,7 +44,11 @@ status byte	data byte1	data byte2
 That is, play (again) the note with velocity (key pressure) = 0;
 
 When consecutive messages would be note on or note off to the same channel, it is common to send just sequencies of data byte1 and data byte2, leaving out status byte that would be the same for all of the messages. This is called ‘Running Status’ and is useful to save bandwidth when large amount of messages must be sent through MIDI (large scores with many instruments).
-##The circuit
+
+## The circuit
+
+![](/Images/3.jpg)
+
 The MIDI electrical ports are based on standard MIDI interface as in the MIDI specifications. For MIDI in I used a dual optoisolator because I have a bunch of those and are equivalent to the single version recommended in the MIDI specifications, 6N137, with different pinout.
 For the schematic click the picture. It is divided in three parts : the main controller with MIDI in and through ports and the LEDs drivers, then the LEDs array and the MIDI PC interface. The latter is the standard MIDI interface as seen everywhere.
 It is worth of note that the shield (ground) connection is connected only at the MIDI through port to maintain a shield on the driving side of a MIDI connection while guranteing electrical isolation at the input side. As I said already, this is necessary to interrupt ground loops that could cause nasty ‘hums’ at the audio outuput of the instrument connected in the MIDI loop.
@@ -61,12 +69,17 @@ But nothing compared to wiring them.
 The LEDs are connected with cathode in parallel note by note (‘C’ cathode to next ‘C’ cathode) and anodes of each group of 12 LEDs in parallel (first 12 notes of the keyboard ‘C’ anode to ‘B’ anode, then the next 12 and so on).
 The job came out easier when I decided not to cut the wires at each LED to start the next connection from the same point. Instead, I spliced the plastic insulation with my nails (it hurts in the run, almost everything has a cost) and wrapped the now-bared portion around the lead to solder to. Then I cut the extra portion of the LED lead and moved on to the next connection.
 Some white Velcro strap on the back the bar and on top of the piano keyboard keeps the bar in place while not hurting the piano.
-Software
+
+## Software
+
 Software is written in ‘C’. Interrupt routines are used to time LED matrix scan.
 Two separate time outs are used to turn off a row’s configuration and output the next one. A potentiometer controls the delay between the two operations to determine how long the LEDs remain lit hence controlling the luminosity.
 MIDI-Through mimics MIDI-In in hardware so as not to create unnecessary delays to the MIDI messages going to the piano.
 The circuit includes a pushbutton to change MIDI channel number to respond to. Pushing the pushbutton the LED bar is cleaned and MIDI current channel number is displayed lighting the LED from central ‘C’ plus current MIDI channel number : channel 1 will light up central ‘C’, channel 2 will light up following ‘C#’ and so on.
 The LED will stay on for a few seconds then normal operation will be resumed, pushing the pushbutton while the LED is still displaying MIDI channel number will increase the MIDI channel number by 1. It will loop to channel 1 after channel 16 is reached.
 The micro runs with watchdog fuse off and clock divider fuse turned off.
+
+![](/Images/4.jpg)
+
 This is the rear view of the box: from left to right, MIDI-Through port, LEDs intensity control, channel selector and connector for DC in.
 The circuit and software are very simple and could be easily modified to make it work on an Arduino (I used a 16MHz clock not by chance) but I’m not planning to do so.
